@@ -1,25 +1,21 @@
 package main
 
 import (
-	"fmt"
-	"math/rand"
-	"strconv"
-	"time"
+	"github.com/gorilla/mux"
+	"html/template"
+	"log"
+	"net/http"
 )
 
+var tpl *template.Template
+
+func init() {
+	tpl = template.Must(template.ParseGlob("templates/*"))
+}
+
 func main() {
-	rand.Seed(time.Now().UTC().UnixNano())
-	var q string
-	num1, num2 := numberGenerator()
-
-	switch operatorGenerator() {
-	case 0:
-		q = strconv.Itoa(num1) + "+" + strconv.Itoa(num2)
-	case 1:
-		q = strconv.Itoa(num1) + "-" + strconv.Itoa(num2)
-	case 2:
-		q = strconv.Itoa(num1) + "*" + strconv.Itoa(num2)
-	}
-
-	fmt.Println(q)
+	r := mux.NewRouter()
+	r.HandleFunc("/", index)
+	r.Handle("/favicon.ico", http.NotFoundHandler())
+	log.Fatal(http.ListenAndServe(":8080", r))
 }
