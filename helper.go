@@ -3,9 +3,13 @@ package main
 import "math/rand"
 
 func numberGenerator() (int, int) {
-	return rand.Intn(15), rand.Intn(10)
+	if a, b := 1+rand.Intn(10), 1+rand.Intn(10); a > b {
+		return a, b
+	} else {
+		return b, a
+	}
 }
 
 func operatorGenerator() int {
-	return rand.Intn(3)
+	return 1 + rand.Intn(3)
 }

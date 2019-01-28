@@ -8,6 +8,26 @@
     <title>Quiz</title>
 </head>
 <body>
-    <h2>Question: {{.}}</h2>
+    <h2>Question: {{.Q}}</h2>
+
+    <form name="option_form" action="/" method="post">
+        {{range .A}}
+            <input type="radio" class="option" name="option" value="{{.}}"> {{.}}
+        {{end}}
+    </form>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready( function() {
+            $(function(){
+                $('.option').click(function(){
+                    if($(this).is(":checked")) {
+                        $('form[name=option_form]').submit();
+                    }
+                })
+            });
+        });
+    </script>
 </body>
 </html>
